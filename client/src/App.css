@@ -1,0 +1,199 @@
+.App {
+  text-align: center;
+}
+
+.smallButtons{
+  margin: 2px 0;
+  align-self: flex-end;
+  font-size: x-small;
+  border: 0;
+}
+
+.login{
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.loginForm{
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  justify-content: center;
+  border: 0;
+}
+
+button{
+    align-self: center;
+    background-color: white;
+}
+
+.dataField{
+  display:  flex;
+  justify-content: space-between;
+}
+
+.room{
+  display: flex;
+  flex-direction: column;
+}
+
+.seat{
+  display: flex;
+  justify-content: center;
+}
+
+.seats {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+.eachSeat{
+  width: 100%;
+  text-align: center;
+}
+
+.date{
+  display: flex;
+}
+
+.spaceAround{
+  display: flex;
+  justify-content: center;
+}
+
+.plane {
+  width: 100%;
+  border-radius:5px;
+}
+
+
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seat input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+}
+
+.seat input[type=checkbox]:checked+label {
+  background: #bada55;
+  color: black;
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+.seat label[type=checkbox]:checked+label {
+  background: white;
+  box-shadow: 0;
+  border: 0;
+} 
+
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+}
+
+.seat input[type=checkbox]:disabled+label:hover {
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.seat label {
+  display: block;
+  position: relative;
+  width: 20%;
+  margin: 1%;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.5rem;
+  padding: 4px 0;
+  border-radius: 5px;
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+  color: black;
+}
+
+.seat label:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 75%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+  box-shadow: 0 0 0px 2px #bada55;
+}
+
+.seat label:hover {
+  cursor: pointer;
+  box-shadow: 0 0 0px 2px black;
+}
+
+.column1 {
+  float: left;
+  width: 40%;
+}
+
+.column2 {
+  float: left;
+  width: 40%;
+  padding: 0;
+  margin: 0;
+}
+
+/* Clear floats after the columns */
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.seatInfo {
+  /* position: relative;  */
+  left:-50px;
+  margin-top:49px;
+  border: 1px solid black;
+  height: auto;
+  border-radius: 5px;
+}
+
+.seatfrm{
+  border:1px solid black;
+}
+
+
+.form-check{
+  margin-left: 32px;
+  margin-top:5px;
+}
+
+.seatBT{
+  display:block;
+  margin-left:40%;
+  margin-bottom: 15px;
+}
+
+.hideBT{
+  display:none;
+}
+
+.activeArrow2 {
+  color: rgb(0, 63, 0);
+  position: absolute;
+  margin-top:50px;
+  left: 370px;
+  animation: bounce 0.5s infinite linear;
+}
