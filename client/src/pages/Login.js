@@ -22,13 +22,13 @@ function Login() {
     });
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data.token);
 
-    if (data.user) {
-      localStorage.setItem("token", data.user);
+    if (data) {
+      localStorage.setItem("token", data.token);
       alert("Login successful!");
       //why did the navigate hook did not work here ??
-      window.location.href = "/dashboard";
+      window.location.href = "/homepage";
     } else {
       alert("Please check your email and password!");
     }
@@ -52,7 +52,7 @@ function Login() {
             type="password"
             placeholder="Password"
           />
-          <input type="submit" value="Register" />
+          <input type="submit" value="Login" />
         </form>
       </div>
     </div>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 
 function HomePage() {
+  const navigate = useNavigate();
   const [data, setData] = useState([
     { 1: "" },
     { 2: "" },
@@ -33,7 +35,13 @@ function HomePage() {
               justifyContent: "end",
             }}
           >
-            <button>Book Seat</button>
+            <button
+              onClick={() => {
+                navigate("/booking");
+              }}
+            >
+              Book Seat
+            </button>
           </div>
           <div className="room">
             <div>

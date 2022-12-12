@@ -8,6 +8,7 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { json } = require("body-parser");
+const Office = require("./models/office.model.js");
 
 app.use(cors());
 app.use(express.json());
@@ -48,7 +49,7 @@ app.post("/api/login", async (req, res) => {
         },
         "secret123"
       );
-      return res.json({ status: "ok", user: true });
+      return res.json({ status: "ok", user: true, token: token });
     } else {
       return res.json({ status: "error", user: false });
     }
@@ -94,7 +95,6 @@ app.post("/api/seat", async (req, res) => {
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
-    q;
     await User.updateOne({ email: email }, { $set: { seat: req.body.seat } });
     console.log(email, req.body.seat);
 
@@ -102,6 +102,82 @@ app.post("/api/seat", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "Invalid token" });
+  }
+});
+
+app.post("/api/booking", async (req, res) => {
+  const token = req.headers["x-access-token"];
+
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const seatNo = req.body.seat;
+    const date = req.body.date;
+    console.log(date);
+    const record = {
+      seat: {
+        number: String(JSON.parse(seatNo)),
+        date: date,
+        email: decoded.email,
+      },
+    };
+    // console.log(record);
+    const response = await Office.create(record);
+    console.log(response);
+
+    res.json({ status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: "error",
+      error: "Something went wrong, try again later!",
+    });
+  }
+});
+
+app.get("/api/dashboard", async (req, res) => {
+  try {
+    const record = await Office.find({});
+    return res.json(record);
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "Data not found!" });
+  }
+});
+
+app.post("/api/update", async (req, res) => {
+  try {
+    const { old: oldSeat, new: newSeat } = req.body;
+    const response = await Office.updateOne(
+      {
+        seat: oldSeat,
+      },
+      {
+        $set: {
+          seat: newSeat,
+        },
+      }
+    );
+    res.json({ status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: "error",
+      error: "Something went wrong, try again later!",
+    });
+  }
+});
+
+app.post("/api/delete", async (req, res) => {
+  try {
+    const { record } = req.body;
+    const response = await Office.deleteOne({ record });
+    res.json({ status: "ok" });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: "error",
+      error: "Something went wrong, try again later!",
+    });
   }
 });
 

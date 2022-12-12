@@ -9,6 +9,7 @@
     "buffer": "^6.0.3",
     "jsonwebtoken": "^8.5.1",
     "react": "^18.2.0",
+    "react-calendar": "^4.0.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.4",
     "react-scripts": "4.0.3",
@@ -42,5 +43,5 @@
     "crypto": false,
     "stream": false,
     "util": false
-}
+  }
 }
