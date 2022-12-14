@@ -205,3 +205,7 @@ label {
   left: 370px;
   animation: bounce 0.5s infinite linear;
 }
+
+.field{
+  justify-content: space-around;
+}

@@ -35,12 +35,13 @@ export default function Booking() {
       },
       body: JSON.stringify({
         seat: reservedSeat,
-        date: selectDate,
+        date: selectDate.getDate(),
       }),
     });
     const data = await req.json();
     if (data.status === "ok") {
       alert("Seat Booked Successfully!");
+      navigate("/profile");
     } else {
       alert(data.error);
     }
@@ -66,8 +67,6 @@ export default function Booking() {
       if (!user) {
         localStorage.removeItem("token");
         navigate("/login", { replace: true });
-      } else {
-        console.log(user);
       }
     }
   };
