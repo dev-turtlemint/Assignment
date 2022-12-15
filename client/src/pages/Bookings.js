@@ -59,11 +59,9 @@ export default function Booking() {
 
   const getToken = async () => {
     const token = await localStorage.getItem("token");
-    console.log(token);
     if (token) {
       const user = jwt.decode(token);
       setEmail(user.email);
-      console.log(user);
       if (!user) {
         localStorage.removeItem("token");
         navigate("/login", { replace: true });
@@ -76,7 +74,7 @@ export default function Booking() {
   }, []);
 
   return (
-    <div>
+    <div className="outerBox">
       <Header />
       <h2>Home Page</h2>
       <div className="ss">
@@ -84,7 +82,7 @@ export default function Booking() {
           <div className="column1">
             <div className="plane">
               <form onChange={(e) => getSeatNumber(e)}>
-                <label htmlFor="Seats">Select Seat</label>
+                <label htmlFor="Seats ">Select Seat</label>
                 <ol className="seats" type="A">
                   {checkList.map((item, index) => (
                     <li className="seat" key={index}>
@@ -110,7 +108,7 @@ export default function Booking() {
                 }}
                 value={selectDate}
                 minDate={new Date()}
-                maxDate={new Date(new Date().setDate(new Date().getDate() + 6))}
+                maxDate={new Date(new Date().setDate(new Date().getDate() + 7))}
               />
             </div>
             <div className="seatInfo">

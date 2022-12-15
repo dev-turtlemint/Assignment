@@ -67,7 +67,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="outerBox">
       <Header />
       <div>
         <h1>Your Seat: {seat || "No Seat found"}</h1>

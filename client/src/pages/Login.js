@@ -35,7 +35,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="outerBox">
       <Header />
       <div>
         <h1>Login</h1>

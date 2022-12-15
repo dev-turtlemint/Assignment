@@ -31,7 +31,7 @@ function Register() {
   }
 
   return (
-    <div>
+    <div className="outerBox">
       <Header />
       <div>
         <h1>Register</h1>

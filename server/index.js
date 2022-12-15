@@ -73,38 +73,6 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-app.get("/api/seat", async (req, res) => {
-  const token = req.headers["x-access-token"];
-  const data = JSON.parse(token);
-
-  try {
-    const decoded = jwt.verify(data.token, "secret123");
-    const email = decoded.email;
-    const user = await User.findOne({ email: email });
-
-    return res.json({ status: "ok", seat: user.seat });
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", error: "Invalid token" });
-  }
-});
-
-app.post("/api/seat", async (req, res) => {
-  const token = req.headers["x-access-token"];
-
-  try {
-    const decoded = jwt.verify(token, "secret123");
-    const email = decoded.email;
-    await User.updateOne({ email: email }, { $set: { seat: req.body.seat } });
-    console.log(email, req.body.seat);
-
-    return res.json({ status: "ok" });
-  } catch (error) {
-    console.log(error);
-    res.json({ status: "error", error: "Invalid token" });
-  }
-});
-
 app.post("/api/booking", async (req, res) => {
   const token = req.headers["x-access-token"];
 
@@ -112,13 +80,13 @@ app.post("/api/booking", async (req, res) => {
     const decoded = jwt.verify(token, "secret123");
     const seatNo = req.body.seat;
     const date = req.body.date;
-    console.log(date);
     const record = {
+      date: date,
       seat: {
         number: String(JSON.parse(seatNo)),
-        date: date,
         email: decoded.email,
         time: Date.now() / 1000,
+        name: decoded.name,
       },
     };
     const response = await Office.create(record);
@@ -136,7 +104,7 @@ app.post("/api/booking", async (req, res) => {
 app.get("/api/dashboard", async (req, res) => {
   try {
     const record = await Office.find({});
-    return res.json(record);
+    return res.json({ record, status: "ok" });
   } catch (error) {
     console.log(error);
     res.json({ status: "error", error: "Data not found!" });

@@ -19,8 +19,6 @@ function Profile() {
       if (!user) {
         localStorage.removeItem("token");
         navigate("/login", { replace: true });
-      } else {
-        console.log(user);
       }
     }
   };
@@ -36,7 +34,7 @@ function Profile() {
     const data = await req.json();
     if (data) {
       setSeat(data.user[0].seat.number);
-      setDate(data.user[0].seat.date);
+      setDate(data.user[0].date);
     }
 
     if (data.status !== "ok") {
@@ -59,7 +57,6 @@ function Profile() {
       }),
     });
     const data = await req.json();
-    console.log(data);
     if (data.status === "Deleted") {
       setDate("");
       setSeat("");
@@ -75,7 +72,7 @@ function Profile() {
   }, []);
 
   return (
-    <div>
+    <div className="outerBox">
       <Header />
       <div>
         <form
