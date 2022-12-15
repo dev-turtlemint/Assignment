@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import "../App.css";
+import Taskbar from "../components/taskbar";
 
 function Register() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ function Register() {
   return (
     <div className="outerBox">
       <Header />
+      <Taskbar />
       <div>
         <h1>Register</h1>
         <form onSubmit={registerUser}>

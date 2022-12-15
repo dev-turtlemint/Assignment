@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
+import Taskbar from "../components/taskbar";
+import "../App.css";
 
 function HomePage() {
   const navigate = useNavigate();
@@ -9,6 +11,7 @@ function HomePage() {
   const [finalData, setFinalData] = useState(
     Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => undefined))
   );
+  const days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
 
   var result = [];
   var today = new Date();
@@ -16,20 +19,16 @@ function HomePage() {
   for (var a = 0; a < 8; a++) {
     result.push(dd + a);
   }
-
-  // var finalData = new Array(8);
-  // for (var i = 0; i < finalData.length; i++) {
-  //   finalData[i] = new Array(8);
-  // }
+  var d = today.getDay();
 
   const setData = (data) => {
     data.record.forEach((element, index) => {
-      let copy = [...finalData];
-      copy[Number(element.date) - dd][Number(element.seat.number) - 1] =
-        element.seat.name;
-      setFinalData(copy);
-      // finalData[Number(element.date) - dd][Number(element.seat.number) - 1] =
-      //   element.seat.name;
+      if (Number(element.date) >= dd) {
+        let copy = [...finalData];
+        copy[Number(element.date) - dd][Number(element.seat.number) - 1] =
+          element.seat.name;
+        setFinalData(copy);
+      }
     });
 
     setLoading(true);
@@ -38,30 +37,7 @@ function HomePage() {
     //     console.log(finalData[j][k]);
     //   }
     // }
-    // console.log(finalData[date - dd][
-    //   Number(Object.keys(seat)) - 1
-    // ]);
   };
-
-  // const setFinalData = (data) => {
-  //   for (let j = 0; j < 8; j++) {
-  //     var t = data.record.find((el) => el.date === String(j + dd));
-  //     console.log(t);
-  //     if (t) {
-  //       for (let k = 0; k < 8; k++) {
-  //         if (t.seat.number === String(k + 1)) {
-  //           finalData[j][k] = t.seat.name;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   for (let j = 0; j < 8; j++) {
-  //     for (let k = 0; k < 8; k++) {
-  //       console.log(finalData[j][k]);
-  //       // console.log(" ");
-  //     }
-  //   }
-  // };
 
   const getData = async () => {
     const req = await fetch("http://localhost:1337/api/dashboard", {
@@ -73,9 +49,7 @@ function HomePage() {
     });
     const data = await req.json();
     setData(data);
-    // console.log(data.record);
-    // const t = data.record.find((el) => el.date === String(6 + dd));
-    // console.log(t.seat.name);
+
     if (data.status !== "ok") {
       alert(data.error);
     }
@@ -89,6 +63,7 @@ function HomePage() {
     <div className="outerBox">
       <Header />
       <h2>Home Page</h2>
+      <Taskbar />
       {loading && (
         <div className="login">
           <form className="loginForm">
@@ -119,7 +94,7 @@ function HomePage() {
                       <input
                         type="text"
                         key={i}
-                        placeholder={date}
+                        placeholder={`${date} - ${days[(d + i) % 7]}`}
                         style={{ textAlign: "center" }}
                       />
                       <div className="seat">

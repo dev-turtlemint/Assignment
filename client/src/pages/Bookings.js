@@ -4,6 +4,7 @@ import Calendar from "react-calendar";
 import jwt from "jsonwebtoken";
 import "react-calendar/dist/Calendar.css";
 import { useNavigate } from "react-router-dom";
+import Taskbar from "../components/taskbar";
 
 export default function Booking() {
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ export default function Booking() {
     <div className="outerBox">
       <Header />
       <h2>Home Page</h2>
+      <Taskbar />
       <div className="ss">
         <div className="row spaceAround">
           <div className="column1">

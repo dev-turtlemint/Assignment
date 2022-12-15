@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import "../App.css";
+import Taskbar from "../components/taskbar";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -69,6 +70,7 @@ function Dashboard() {
   return (
     <div className="outerBox">
       <Header />
+      <Taskbar />
       <div>
         <h1>Your Seat: {seat || "No Seat found"}</h1>
         <form onSubmit={updateSeat}>

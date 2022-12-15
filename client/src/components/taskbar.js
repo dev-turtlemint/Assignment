@@ -1,16 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import "../App.css";
 
-function taskbar() {
+function Taskbar() {
   return (
-    <div>
-      <Link>Home</Link>
-      <Link>Dash</Link>
-      <Link>Home</Link>
-      <Link>Home</Link>
-      <Link>Home</Link>
+    <div className="header">
+      <NavLink className="link" to="/">
+        Home
+      </NavLink>
+      <NavLink className="link" to="/booking">
+        Book
+      </NavLink>
+      <NavLink className="link" to="/register">
+        Register
+      </NavLink>
+      <NavLink className="link" to="/login">
+        Login
+      </NavLink>
+      <NavLink className="link" to="/profile">
+        Profile
+      </NavLink>
     </div>
   );
 }
 
-export default taskbar;
+export default Taskbar;

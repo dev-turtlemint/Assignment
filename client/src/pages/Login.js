@@ -2,6 +2,7 @@ import { useState } from "react";
 import Header from "../components/header";
 // import {useNavigate} from 'react-router-dom';
 import "../App.css";
+import Taskbar from "../components/taskbar";
 
 function Login() {
   // const navigate = useNavigate();
@@ -37,6 +38,7 @@ function Login() {
   return (
     <div className="outerBox">
       <Header />
+      <Taskbar />
       <div>
         <h1>Login</h1>
         <form onSubmit={loginUser}>

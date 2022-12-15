@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/header";
 import jwt from "jsonwebtoken";
 import { useNavigate } from "react-router-dom";
+import Taskbar from "../components/taskbar";
 
 function Profile() {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ function Profile() {
   return (
     <div className="outerBox">
       <Header />
+      <Taskbar />
       <div>
         <form
           style={{
