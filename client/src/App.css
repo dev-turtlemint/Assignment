@@ -1,22 +1,24 @@
 .App {
   text-align: center;
+  background-color: #009f68;
+  height: 100vh;
 }
 
-.smallButtons{
+.smallButtons {
   margin: 2px 0;
   align-self: flex-end;
   font-size: x-small;
   border: 0;
 }
 
-.login{
+.login {
   margin-top: 10%;
   display: flex;
   justify-content: center;
   align-self: center;
 }
 
-.loginForm{
+.loginForm {
   padding: 0 10%;
   width: 100%;
   display: flex;
@@ -26,22 +28,22 @@
   border: 0;
 }
 
-button{
-    align-self: center;
-    background-color: white;
+button {
+  align-self: center;
+  background-color: white;
 }
 
-.dataField{
-  display:  flex;
+.dataField {
+  display: flex;
   justify-content: space-between;
 }
 
-.room{
+.room {
   display: flex;
   flex-direction: column;
 }
 
-.seat{
+.seat {
   display: flex;
   justify-content: center;
 }
@@ -53,31 +55,29 @@ button{
   width: 100%;
 }
 
-.aSeat{
+.aSeat {
   /* margin: 1%; */
   padding: 0 1%;
 }
 
-
-.eachSeat{
+.eachSeat {
   width: 100%;
   text-align: center;
 }
 
-.date{
+.date {
   display: flex;
 }
 
-.spaceAround{
+.spaceAround {
   display: flex;
   justify-content: center;
 }
 
 .plane {
   width: 100%;
-  border-radius:5px;
+  border-radius: 5px;
 }
-
 
 ol {
   list-style: none;
@@ -85,12 +85,12 @@ ol {
   margin: 0;
 }
 
-.seat input[type=checkbox] {
+.seat input[type="checkbox"] {
   position: absolute;
   opacity: 0;
 }
 
-.seat input[type=checkbox]:checked+label {
+.seat input[type="checkbox"]:checked + label {
   background: #bada55;
   color: black;
   -webkit-animation-name: rubberBand;
@@ -98,18 +98,18 @@ ol {
   animation-duration: 300ms;
   animation-fill-mode: both;
 }
-.seat label[type=checkbox]:checked+label {
+.seat label[type="checkbox"]:checked + label {
   background: white;
   box-shadow: 0;
   border: 0;
-} 
+}
 
 .rubberBand {
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
 }
 
-.seat input[type=checkbox]:disabled+label:hover {
+.seat input[type="checkbox"]:disabled + label:hover {
   box-shadow: none;
   cursor: not-allowed;
 }
@@ -173,7 +173,7 @@ ol {
 .seatInfo {
   /* position: relative;  */
   width: 100%;
-  left:-50px;
+  left: -50px;
   /* border: 1px solid black; */
   height: auto;
   border-radius: 5px;
@@ -183,56 +183,111 @@ label {
   margin: 1% 0;
 }
 
-.seatfrm{
-  border:1px solid black;
+.seatfrm {
+  border: 1px solid black;
 }
 
-
-.form-check{
+.form-check {
   margin-left: 32px;
-  margin-top:5px;
+  margin-top: 5px;
 }
 
-.seatBT{
-  display:block;
-  margin-left:40%;
+.seatBT {
+  display: block;
+  margin-left: 40%;
   margin-bottom: 15px;
 }
 
-.hideBT{
-  display:none;
+.hideBT {
+  display: none;
 }
 
 .activeArrow2 {
   color: rgb(0, 63, 0);
   position: absolute;
-  margin-top:50px;
+  margin-top: 50px;
   left: 370px;
   animation: bounce 0.5s infinite linear;
 }
 
-.field{
-  justify-content: space-around;
+.field {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 1%;
 }
 
-.HPHeader{
+.HPHeader {
   display: flex;
 }
 
-.outerBox{
-  /* width: 500px; */
-  padding: 10% 20%;
+.outerBox {
+  /* width: 400px; */
+  /* height: 400px; */
+  justify-self: center;
+  align-self: center;
+  padding: 5% 20%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /*
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: saturate(180%) blur(10px);*/
+  /* From https://css.glass */
+  /* background: rgba(255, 255, 255, 0.55);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6.9px);
+  -webkit-backdrop-filter: blur(6.9px);
+  border: 1px solid rgba(255, 255, 255, 0.37); */
 }
 
-.link{
+.link {
   color: black;
   text-decoration: none;
 }
 
-.header{
+.header {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 5%;
+}
+
+/* .field label{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.field input{
+  margin-right: 10%;
+} */
+
+.users-table {
+  border-spacing: 0;
+  text-transform: capitalize;
+  min-width: 35rem;
+  width: 150%;
+  border-collapse: collapse;
+  /* background-color: white; */
+  border: 1px solid gray;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+}
+
+.users-table-container {
+  color: white;
+  display: flex;
+  justify-content: center;
+  border-radius: 0.2rem;
+  padding: 1% 1%;
+}
+
+th,
+td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 1rem;
+}
+
+button {
+  text-decoration: none;
 }

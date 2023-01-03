@@ -77,7 +77,7 @@ export default function Booking() {
   return (
     <div className="outerBox">
       <Header />
-      <h2>Home Page</h2>
+      <h2>Booking Page</h2>
       <Taskbar />
       <div className="ss">
         <div className="row spaceAround">

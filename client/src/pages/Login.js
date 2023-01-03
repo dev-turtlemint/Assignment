@@ -38,9 +38,9 @@ function Login() {
   return (
     <div className="outerBox">
       <Header />
+      <h2>Login Page</h2>
       <Taskbar />
       <div>
-        <h1>Login</h1>
         <form onSubmit={loginUser}>
           <input
             value={email}

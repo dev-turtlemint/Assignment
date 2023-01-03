@@ -34,9 +34,9 @@ function Register() {
   return (
     <div className="outerBox">
       <Header />
+      <h2>Register User Page</h2>
       <Taskbar />
       <div>
-        <h1>Register</h1>
         <form onSubmit={registerUser}>
           <input
             value={name}

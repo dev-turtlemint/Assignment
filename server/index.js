@@ -82,12 +82,10 @@ app.post("/api/booking", async (req, res) => {
     const date = req.body.date;
     const record = {
       date: date,
-      seat: {
-        number: String(JSON.parse(seatNo)),
-        email: decoded.email,
-        time: Date.now() / 1000,
-        name: decoded.name,
-      },
+      number: String(JSON.parse(seatNo)),
+      email: decoded.email,
+      time: Date.now() / 1000,
+      name: decoded.name,
     };
     const response = await Office.create(record);
 
@@ -142,9 +140,9 @@ app.post("/api/delete", async (req, res) => {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
     const user = await Office.findOneAndDelete({
-      "seat.email": email,
-      "seat.date": date,
-      "seat.number": seat,
+      email: email,
+      date: date,
+      number: seat,
     });
     return res.json({ status: "Deleted" });
   } catch (error) {
@@ -158,7 +156,20 @@ app.get("/api/profile", async (req, res) => {
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
-    const user = await Office.find({ "seat.email": email });
+    const user = await Office.find({ email: email });
+    return res.json({ status: "ok", user: user });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "error", error: "Error" });
+  }
+});
+
+app.get("/api/bookingData", async (req, res) => {
+  const token = req.headers["x-access-token"];
+  try {
+    const decoded = jwt.verify(token, "secret123");
+    const email = decoded.email;
+    const user = await Office.find({ email: email });
     return res.json({ status: "ok", user: user });
   } catch (error) {
     console.log(error);
