@@ -33,31 +33,32 @@ function Register() {
 
   return (
     <div className="outerBox">
-      <Header />
-      <h2>Register User Page</h2>
-      <Taskbar />
-      <div>
-        <form onSubmit={registerUser}>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            type="text"
-            placeholder="Name"
-          />
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          <input type="submit" value="Register" />
-        </form>
+      <div className="glassDesign">
+        <Header />
+        <Taskbar />
+        <div>
+          <form onSubmit={registerUser}>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Name"
+            />
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+            <input type="submit" value="Register" />
+          </form>
+        </div>
       </div>
     </div>
   );

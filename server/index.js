@@ -136,6 +136,7 @@ app.post("/api/delete", async (req, res) => {
   const token = req.headers["x-access-token"];
   const date = req.body.date;
   const seat = req.body.seat;
+  console.log(req);
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;

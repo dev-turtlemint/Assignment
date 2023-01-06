@@ -26,7 +26,15 @@ function Login() {
     // console.log(data.token);
 
     if (data) {
+      // localStorage.setItem("token", (data.token, new Date().getTime()));
       localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "tokenData",
+        JSON.stringify({
+          ...data.token,
+          issuedAt: new Date().getTime(),
+        })
+      );
       alert("Login successful!");
       //why did the navigate hook did not work here ??
       window.location.href = "/homepage";
@@ -37,25 +45,26 @@ function Login() {
 
   return (
     <div className="outerBox">
-      <Header />
-      <h2>Login Page</h2>
-      <Taskbar />
-      <div>
-        <form onSubmit={loginUser}>
-          <input
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            type="email"
-            placeholder="Email"
-          />
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            type="password"
-            placeholder="Password"
-          />
-          <input type="submit" value="Login" />
-        </form>
+      <div className="glassDesign">
+        <Header />
+        <Taskbar />
+        <div>
+          <form onSubmit={loginUser}>
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+            />
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+            <input type="submit" value="Login" />
+          </form>
+        </div>
       </div>
     </div>
   );

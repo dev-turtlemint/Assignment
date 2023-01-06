@@ -48,7 +48,6 @@ function Profile() {
 
   const handleCanceling = async (item) => {
     // e.preventDefault();
-
     setSeat(item.number);
     setDate(item.date);
     const req = await fetch("http://localhost:1337/api/delete", {
@@ -58,15 +57,15 @@ function Profile() {
         "x-access-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({
-        seat: seat,
-        date: date,
+        seat: item.number,
+        date: item.date,
       }),
     });
     const data = await req.json();
     if (data.status === "Deleted") {
       setDate("");
       setSeat("");
-      // window.location.reload();
+      window.location.reload();
     } else {
       alert(data.error);
     }
@@ -88,88 +87,57 @@ function Profile() {
 
   return (
     <div className="outerBox">
-      <Header />
-      <h2>Profile Page</h2>
-      <Taskbar />
-      <div>
-        {userData.length > 0 ? (
-          <div className="users-table-container">
-            <table className="users-table">
-              <thead className="users-table__head">
-                <tr>
-                  {column &&
-                    column.map((head, id) => <th key={id}>{head.header}</th>)}
-                </tr>
-              </thead>
-              <tbody className="users-table__body">
-                {userData &&
-                  userData.map((item, id) => (
-                    <tr key={id}>
-                      {column &&
-                        column.map((head, i) =>
-                          head.field !== "cancel" ? (
-                            head.field === "time" ? (
-                              <td key={i}>
-                                {new Date(
-                                  item[head.field] * 1000
-                                ).toDateString()}
-                              </td>
+      <div className="glassDesign">
+        <Header />
+        <Taskbar />
+        <div>
+          {userData.length > 0 ? (
+            <div className="users-table-container">
+              <table className="users-table">
+                <thead className="users-table__head">
+                  <tr>
+                    {column &&
+                      column.map((head, id) => <th key={id}>{head.header}</th>)}
+                  </tr>
+                </thead>
+                <tbody className="users-table__body">
+                  {userData &&
+                    userData.map((item, id) => (
+                      <tr key={id}>
+                        {column &&
+                          column.map((head, i) =>
+                            head.field !== "cancel" ? (
+                              head.field === "time" ? (
+                                <td key={i}>
+                                  {new Date(
+                                    item[head.field] * 1000
+                                  ).toDateString()}
+                                </td>
+                              ) : (
+                                <td key={i}>{item[head.field]}</td>
+                              )
                             ) : (
-                              <td key={i}>{item[head.field]}</td>
+                              <td key={i}>
+                                <button
+                                  type="button"
+                                  onClick={() => handleCanceling(item)}
+                                >
+                                  Cancel
+                                </button>
+                              </td>
                             )
-                          ) : (
-                            <td key={i}>
-                              <button
-                                type="button"
-                                onClick={() => handleCanceling(item)}
-                              >
-                                Cancel
-                              </button>
-                            </td>
-                          )
-                        )}
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <div>
-            <p>No Booking Found!</p>
-          </div>
-        )}
-        {/* <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <div className="field">
-            <label className="label">Name:</label>
-            <input className="input" value={name} type="text" disabled={true} />
-          </div>
-          <div className="field">
-            <label className="label">Email:</label>
-            <input
-              className="input"
-              value={email}
-              type="email"
-              disabled={true}
-            />
-          </div>
-          <div className="field">
-            <label className="label">Seat:</label>
-            <input className="input" value={seat} disabled={true} />
-          </div>
-          <div className="field">
-            <label className="label">Date:</label>
-            <input className="input" value={date} disabled={true} />
-          </div>
-          <button type="submit" onClick={handleCanceling}>
-            Cancel Booking
-          </button>
-        </form> */}
+                          )}
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div>
+              <p>No Booking Found!</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

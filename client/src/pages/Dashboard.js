@@ -68,22 +68,26 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="outerBox">
-      <Header />
-      <Taskbar />
-      <div>
-        <h1>Your Seat: {seat || "No Seat found"}</h1>
-        <form onSubmit={updateSeat}>
-          <input
-            type="text"
-            placeholder="Seat"
-            value={tempSeat}
-            onChange={(e) => {
-              setTempSeat(e.target.value);
-            }}
-          />
-          <input type="submit" value="Update Seat" />
-        </form>
+    <div>
+      <div className="outerBox">
+        <div className="glassDesign">
+          <Header />
+          <Taskbar />
+          <div>
+            <h1>Your Seat: {seat || "No Seat found"}</h1>
+            <form onSubmit={updateSeat}>
+              <input
+                type="text"
+                placeholder="Seat"
+                value={tempSeat}
+                onChange={(e) => {
+                  setTempSeat(e.target.value);
+                }}
+              />
+              <input type="submit" value="Update Seat" />
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   );

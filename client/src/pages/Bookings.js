@@ -76,57 +76,62 @@ export default function Booking() {
 
   return (
     <div className="outerBox">
-      <Header />
-      <h2>Booking Page</h2>
-      <Taskbar />
-      <div className="ss">
-        <div className="row spaceAround">
-          <div className="column1">
-            <div className="plane">
-              <form onChange={(e) => getSeatNumber(e)}>
-                <label htmlFor="Seats ">Select Seat</label>
-                <ol className="seats" type="A">
-                  {checkList.map((item, index) => (
-                    <li className="seat" key={index}>
-                      <input
-                        type="checkbox"
-                        value={item}
-                        id={item}
-                        onChange={handleCheck}
-                      />
-                      <label htmlFor={item}>{item}</label>
-                    </li>
-                  ))}
-                </ol>
-              </form>
+      <div className="glassDesign">
+        <Header />
+        <Taskbar />
+        <div className="ss">
+          <div className="row spaceAround">
+            <div className="column1">
+              <div className="plane">
+                <form onChange={(e) => getSeatNumber(e)}>
+                  <label htmlFor="Seats ">Select Seat</label>
+                  <ol className="seats" type="A">
+                    {checkList.map((item, index) => (
+                      <li className="seat" key={index}>
+                        <input
+                          type="checkbox"
+                          value={item}
+                          id={item}
+                          onChange={handleCheck}
+                        />
+                        <label htmlFor={item}>{item}</label>
+                      </li>
+                    ))}
+                  </ol>
+                </form>
+              </div>
             </div>
-          </div>
-          <div className="column2">
-            <label htmlFor="Dates">Select Dates</label>
-            <div>
-              <Calendar
-                onChange={(selectDate) => {
-                  setSelectDate(selectDate);
-                }}
-                value={selectDate}
-                minDate={new Date()}
-                maxDate={new Date(new Date().setDate(new Date().getDate() + 7))}
-              />
-            </div>
-            <div className="seatInfo">
-              <form>
-                <input value={email} readOnly />
-                <input value={reservedSeat} readOnly />
-                {selectDate && <input value={selectDate.getDate()} readOnly />}
-                <div>
-                  <button
-                    onClick={(e) => handleSubmitDetails(e)}
-                    className="btn btn-info seatBT"
-                  >
-                    Confirm Details
-                  </button>
-                </div>
-              </form>
+            <div className="column2">
+              <label htmlFor="Dates">Select Dates</label>
+              <div>
+                <Calendar
+                  onChange={(selectDate) => {
+                    setSelectDate(selectDate);
+                  }}
+                  value={selectDate}
+                  minDate={new Date()}
+                  maxDate={
+                    new Date(new Date().setDate(new Date().getDate() + 7))
+                  }
+                />
+              </div>
+              <div className="seatInfo">
+                <form>
+                  <input value={email} readOnly />
+                  <input value={reservedSeat} readOnly />
+                  {selectDate && (
+                    <input value={selectDate.getDate()} readOnly />
+                  )}
+                  <div>
+                    <button
+                      onClick={(e) => handleSubmitDetails(e)}
+                      className="btn btn-info seatBT"
+                    >
+                      Confirm Details
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

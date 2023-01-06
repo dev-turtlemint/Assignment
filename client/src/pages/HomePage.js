@@ -25,8 +25,8 @@ function HomePage() {
     data.record.forEach((element, index) => {
       if (Number(element.date) >= dd) {
         let copy = [...finalData];
-        copy[Number(element.date) - dd][Number(element.seat.number) - 1] =
-          element.seat.name;
+        copy[Number(element.date) - dd][Number(element.number) - 1] =
+          element.name;
         setFinalData(copy);
       }
     });
@@ -56,74 +56,75 @@ function HomePage() {
   };
 
   useEffect(() => {
-    // getData();
+    getData();
   }, []);
 
   return (
     <div className="outerBox">
-      <Header />
-      <h2>Home Page</h2>
-      <Taskbar />
-      {loading && (
-        <div className="login">
-          <form className="loginForm">
-            <div
-              style={{
-                display: "flex",
-                alignItems: "end",
-                justifyContent: "end",
-              }}
-            >
-              <button
-                onClick={() => {
-                  navigate("/booking");
+      <div className="glassDesign">
+        <Header />
+        <Taskbar />
+        {loading && (
+          <div className="login">
+            <form className="loginForm">
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "end",
+                  justifyContent: "end",
                 }}
               >
-                Book Seat
-              </button>
-            </div>
-            <div className="room">
-              <div className="HPHeader">
-                <p style={{ width: "20%" }}>Dates</p>
-                <p style={{ width: "80%" }}>Seats</p>
+                <button
+                  onClick={() => {
+                    navigate("/booking");
+                  }}
+                >
+                  Book Seat
+                </button>
               </div>
-              <div>
-                {result.map((date, i) => {
-                  return (
-                    <div className="date">
-                      <input
-                        type="text"
-                        key={i}
-                        placeholder={`${date} - ${days[(d + i) % 7]}`}
-                        style={{ textAlign: "center" }}
-                      />
-                      <div className="seat">
-                        {data.map((seat, id) => {
-                          return (
-                            <div className="aSeat">
-                              <input
-                                type="text"
-                                key={id}
-                                placeholder={
-                                  typeof finalData[date - dd][seat - 1] ===
-                                  "undefined"
-                                    ? seat
-                                    : finalData[date - dd][seat - 1]
-                                }
-                                className="eachSeat"
-                              />
-                            </div>
-                          );
-                        })}
+              <div className="room">
+                <div className="HPHeader">
+                  <p style={{ width: "20%" }}>Dates</p>
+                  <p style={{ width: "80%" }}>Seats</p>
+                </div>
+                <div>
+                  {result.map((date, i) => {
+                    return (
+                      <div className="date" key={i}>
+                        <input
+                          type="text"
+                          key={i}
+                          placeholder={`${date} - ${days[(d + i) % 7]}`}
+                          style={{ textAlign: "center" }}
+                        />
+                        <div className="seat">
+                          {data.map((seat, id) => {
+                            return (
+                              <div className="aSeat" key={id}>
+                                <input
+                                  type="text"
+                                  key={id}
+                                  placeholder={
+                                    typeof finalData[date - dd][seat - 1] ===
+                                    "undefined"
+                                      ? seat
+                                      : finalData[date - dd][seat - 1]
+                                  }
+                                  className="eachSeat"
+                                />
+                              </div>
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          </form>
-        </div>
-      )}
+            </form>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
