@@ -13,6 +13,58 @@ export default function Booking() {
   const [selectDate, setSelectDate] = useState(null);
   const checkList = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
+  const data = [1, 2, 3, 4, 5, 6, 7, 8];
+  const [finalData, setFinalData] = useState(
+    Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => undefined))
+  );
+
+  const days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+
+  var result = [];
+  var today = new Date();
+  var dd = today.getDate();
+  for (var a = 0; a < 8; a++) {
+    result.push(dd + a);
+  }
+  var d = today.getDay();
+
+  const setData = (data) => {
+    data.record.forEach((element, index) => {
+      if (Number(element.date) >= dd) {
+        let copy = [...finalData];
+        copy[Number(element.date) - dd][Number(element.number) - 1] =
+          element.name;
+        setFinalData(copy);
+        console.log(finalData);
+      }
+    });
+  };
+
+  const checkIfVacant = (reservedSeat, selectDate) => {
+    console.log(selectDate.getDate(), Number(reservedSeat));
+    if(finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1] === undefined){
+      return true;
+    }
+    else return false;
+  }
+
+  const getData = async () => {
+    const req = await fetch("http://localhost:1337/api/dashboard", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": localStorage.getItem("token"),
+      },
+    });
+    const data = await req.json();
+    console.log(data);
+    setData(data);
+
+    if (data.status !== "ok") {
+      alert(data.error);
+    }
+  };
+
   const getSeatNumber = (e) => {
     let newSeat = e.target.value;
     if (reservedSeat.includes(newSeat)) {
@@ -27,25 +79,30 @@ export default function Booking() {
 
   const handleSubmitDetails = async (e) => {
     e.preventDefault();
-
-    const req = await fetch("http://localhost:1337/api/booking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token"),
-      },
-      body: JSON.stringify({
-        seat: reservedSeat,
-        date: selectDate.getDate(),
-      }),
-    });
-    const data = await req.json();
-    if (data.status === "ok") {
-      alert("Seat Booked Successfully!");
-      navigate("/profile");
-    } else {
-      alert(data.error);
+    const isVacant = checkIfVacant(reservedSeat, selectDate);
+    if(isVacant){
+      const req = await fetch("http://localhost:1337/api/booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          seat: reservedSeat,
+          date: selectDate.getDate(),
+        }),
+      });
+      const data = await req.json();
+      if (data.status === "ok") {
+        alert("Seat Booked Successfully!");
+        navigate("/profile");
+      } else {
+        alert(data.error);
+      }
     }
+    else alert('Seat Already Booked !');
+
+    
   };
 
   const handleCheck = (event) => {
@@ -72,6 +129,7 @@ export default function Booking() {
 
   useEffect(() => {
     getToken();
+    getData();
   }, []);
 
   return (
