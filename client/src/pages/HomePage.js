@@ -3,8 +3,13 @@ import { useNavigate } from "react-router-dom";
 import Header from "../components/header";
 import Taskbar from "../components/taskbar";
 import "../App.css";
+import jwt from "jsonwebtoken";
 
 function HomePage() {
+  const [date, setDate] = useState();
+  const [seat, setSeat] = useState();
+  const [email, setEmail] = useState("E-mail");
+  const [name, setName] = useState("");
   const navigate = useNavigate();
   const data = [1, 2, 3, 4, 5, 6, 7, 8];
   const [loading, setLoading] = useState(true);
@@ -39,6 +44,47 @@ function HomePage() {
     // }
   };
 
+  const checkIfVacant = (seat, date) => {
+    if (finalData[date - dd][Number(seat) - 1] === undefined) {
+      return [true, finalData[date - dd][Number(seat) - 1]];
+    } else {
+      return [false, finalData[date - dd][Number(seat) - 1]];
+    }
+  };
+
+  const handleSubmitDetails = async (e) => {
+    e.preventDefault();
+    const isVacant = checkIfVacant(seat, date);
+    if (isVacant[0]) {
+      for (let i = 0; i < 8; i++) {
+        if (name === isVacant[1]) {
+          alert("Only one seat per person per day allowed !");
+        }
+      }
+      const req = await fetch("http://localhost:1337/api/booking", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          seat: seat,
+          date: date,
+        }),
+      });
+      const data = await req.json();
+      if (data.status === "ok") {
+        alert("Seat Booked Successfully!");
+        navigate("/profile");
+      } else {
+        alert(data.error);
+      }
+    } else {
+      // console.log(isVacant[1])
+      alert("Seat Already Booked!");
+    }
+  };
+
   const getData = async () => {
     const req = await fetch("http://localhost:1337/api/dashboard", {
       method: "GET",
@@ -55,8 +101,36 @@ function HomePage() {
     }
   };
 
+  const checkInput = (event) => {
+    if (seat === undefined || date === undefined) {
+      alert("Please enter the Date and Seat No !");
+    } else {
+      handleSubmitDetails(event);
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(seat, date);
+  // }, [seat, date]);
+
+  // navigate("/booking");
+
+  const getToken = async () => {
+    const token = await localStorage.getItem("token");
+    if (token) {
+      const user = jwt.decode(token);
+      setEmail(user.email);
+      setName(user.name);
+      if (!user) {
+        localStorage.removeItem("token");
+        navigate("/login", { replace: true });
+      }
+    }
+  };
+
   useEffect(() => {
     getData();
+    getToken();
   }, []);
 
   return (
@@ -67,21 +141,20 @@ function HomePage() {
         {loading && (
           <div className="login">
             <form className="loginForm">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "end",
-                  justifyContent: "end",
-                }}
-              >
-                <button
-                  className="glassDesign"
-                  onClick={() => {
-                    navigate("/booking");
-                  }}
-                >
-                  Book Seat
-                </button>
+              <div className="flexSpaceBtw">
+                <div>
+                  <label>Seat No</label>
+                  <input value={seat} readOnly />
+                </div>
+                <div>
+                  <label>Date</label>
+                  <input value={date} readOnly />
+                </div>
+                <div>
+                  <button className="glassDesign" onClick={checkInput}>
+                    Book Seat
+                  </button>
+                </div>
               </div>
               <div className="room">
                 <div className="HPHeader">
@@ -93,6 +166,10 @@ function HomePage() {
                     return (
                       <div className="date" key={i}>
                         <input
+                          readOnly
+                          onClick={(e) => {
+                            setDate(`${date}`);
+                          }}
                           type="text"
                           key={i}
                           placeholder={`${date} - ${days[(d + i) % 7]}`}
@@ -103,6 +180,10 @@ function HomePage() {
                             return (
                               <div className="aSeat" key={id}>
                                 <input
+                                  readOnly
+                                  onClick={(e) => {
+                                    setSeat(e.target.placeholder);
+                                  }}
                                   type="text"
                                   key={id}
                                   placeholder={

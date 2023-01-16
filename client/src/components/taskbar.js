@@ -8,9 +8,9 @@ function Taskbar() {
       <NavLink className="link" to="/">
         Home
       </NavLink>
-      <NavLink className="link" to="/booking">
+      {/* <NavLink className="link" to="/booking">
         Book
-      </NavLink>
+      </NavLink> */}
       <NavLink className="link" to="/register">
         Register
       </NavLink>
