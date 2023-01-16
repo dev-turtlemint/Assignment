@@ -36,13 +36,11 @@ export default function Booking() {
         copy[Number(element.date) - dd][Number(element.number) - 1] =
           element.name;
         setFinalData(copy);
-        console.log(finalData);
       }
     });
   };
 
   const checkIfVacant = (reservedSeat, selectDate) => {
-    console.log(selectDate.getDate(), Number(reservedSeat));
     if(finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1] === undefined){
       return [true, finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1]];
     }
@@ -60,7 +58,6 @@ export default function Booking() {
       },
     });
     const data = await req.json();
-    console.log(data);
     setData(data);
 
     if (data.status !== "ok") {
@@ -130,7 +127,6 @@ export default function Booking() {
     const token = await localStorage.getItem("token");
     if (token) {
       const user = jwt.decode(token);
-      console.log(user);
       setEmail(user.email);
       setName(user.name);
       if (!user) {
@@ -147,7 +143,7 @@ export default function Booking() {
 
   return (
     <div className="outerBox">
-      <div className="glassDesign">
+      <div className="glassDesign box">
         <Header />
         <Taskbar />
         <div className="ss">

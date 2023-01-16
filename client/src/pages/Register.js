@@ -11,6 +11,15 @@ function Register() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const checkInput = (event) => {
+    if(name === undefined || email === undefined || password === undefined){
+      alert("Please enter the Name, Email and Password !");
+    }
+    else {
+      registerUser(event);
+    }
+  }
+
   async function registerUser(event) {
     event.preventDefault();
     const response = await fetch("http://localhost:1337/api/register", {
@@ -33,11 +42,11 @@ function Register() {
 
   return (
     <div className="outerBox">
-      <div className="glassDesign">
+      <div className="glassDesign box">
         <Header />
         <Taskbar />
         <div>
-          <form onSubmit={registerUser}>
+          <form onSubmit={checkInput} className="flexColumn">
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -56,7 +65,7 @@ function Register() {
               type="password"
               placeholder="Password"
             />
-            <input type="submit" value="Register" />
+            <input type="submit" value="Register" className="glassDesign" style={{marginTop: "1%"}}/>
           </form>
         </div>
       </div>

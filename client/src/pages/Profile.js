@@ -36,7 +36,6 @@ function Profile() {
     const data = await req.json();
 
     if (data) {
-      console.log(data.user);
       setUserData(data.user);
       // setLoading(false);
     }
@@ -87,7 +86,7 @@ function Profile() {
 
   return (
     <div className="outerBox">
-      <div className="glassDesign">
+      <div className="glassDesign box">
         <Header />
         <Taskbar />
         <div>

@@ -9,8 +9,18 @@ function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+  const checkInput = (event) => {
+    if(email === undefined || password === undefined){
+      alert("Please enter the Email and Password !");
+    }
+    else {
+      loginUser(event);
+    }
+  }
+
   async function loginUser(event) {
     event.preventDefault();
+    
     const response = await fetch("http://localhost:1337/api/login", {
       method: "POST",
       headers: {
@@ -45,11 +55,11 @@ function Login() {
 
   return (
     <div className="outerBox">
-      <div className="glassDesign">
+      <div className="glassDesign box">
         <Header />
         <Taskbar />
         <div>
-          <form onSubmit={loginUser}>
+          <form onSubmit={checkInput} className="flexColumn">
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +72,7 @@ function Login() {
               type="password"
               placeholder="Password"
             />
-            <input type="submit" value="Login" />
+            <input type="submit" value="Login" className="glassDesign" style={{marginTop: "1%"}}/>
           </form>
         </div>
       </div>

@@ -61,7 +61,7 @@ function HomePage() {
 
   return (
     <div className="outerBox">
-      <div className="glassDesign">
+      <div className="glassDesign box">
         <Header />
         <Taskbar />
         {loading && (
