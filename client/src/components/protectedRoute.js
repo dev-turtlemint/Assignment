@@ -3,13 +3,14 @@ import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ component: RouteComponent }) => {
   const data = JSON.parse(localStorage.getItem("tokenData"));
-  // console.log(data);
-  // console.log("working");
+  console.log(data.issuedAt);
+  console.log( +data.issuedAt + +600000 > new Date().getTime()  );
   const accessToken =
-    data && data.issuedAt + data.issuedAt * 10 > new Date().getTime()
+    data && +data.issuedAt + +600000 > new Date().getTime()
       ? data
       : null;
 
+  console.log(accessToken);
   if (accessToken) {
     return <RouteComponent />;
   } else {

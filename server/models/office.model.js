@@ -5,7 +5,7 @@ const officeSchema = new mongoose.Schema(
     date: String,
     number: String,
     email: String,
-    time: { type: String, default: Date.now() },
+    time: { type: Number, default: Date.now() },
     name: String,
   },
   {

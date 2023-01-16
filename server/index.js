@@ -101,7 +101,12 @@ app.post("/api/booking", async (req, res) => {
 
 app.get("/api/dashboard", async (req, res) => {
   try {
-    const record = await Office.find({});
+    const dateNow = Date.now()
+    // const record = await Office.find({ });
+    const record = await Office.find({ time: { $gte: (dateNow/1000 - 604800) } });
+    // record.filter(function(item){return dateNow/1000 - Number(item.time) < 604800});
+    console.log('---------------------');
+    console.log(record);
     return res.json({ record, status: "ok" });
   } catch (error) {
     console.log(error);

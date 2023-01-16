@@ -21,7 +21,11 @@ function App() {
           ></Route>
           <Route path="/login" exact element={<Login />}></Route>
           <Route path="/register" exact element={<Register />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
+          <Route
+            path="/profile"
+            element={<ProtectedRoute component={Profile} />}
+          ></Route>
+          {/* <Route path="/profile" element={<Profile />}></Route> */}
           {/* <Route path="/officeInfo" element={<OfficeInfo />}></Route> */}
         </Routes>
       </BrowserRouter>

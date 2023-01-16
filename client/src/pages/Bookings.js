@@ -12,6 +12,7 @@ export default function Booking() {
   const [reservedSeat, setReservedSeat] = useState([]);
   const [selectDate, setSelectDate] = useState(null);
   const checkList = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  const [name, setName] = useState("");
 
   const data = [1, 2, 3, 4, 5, 6, 7, 8];
   const [finalData, setFinalData] = useState(
@@ -43,9 +44,11 @@ export default function Booking() {
   const checkIfVacant = (reservedSeat, selectDate) => {
     console.log(selectDate.getDate(), Number(reservedSeat));
     if(finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1] === undefined){
-      return true;
+      return [true, finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1]];
     }
-    else return false;
+    else {
+      return [false, finalData[Number(selectDate.getDate()) - dd][Number(reservedSeat) - 1]];
+    }
   }
 
   const getData = async () => {
@@ -80,7 +83,12 @@ export default function Booking() {
   const handleSubmitDetails = async (e) => {
     e.preventDefault();
     const isVacant = checkIfVacant(reservedSeat, selectDate);
-    if(isVacant){
+    if(isVacant[0]){
+      for(let i = 0; i<8; i++){
+        if(name === isVacant[1]){
+          alert("Only one seat per person per day allowed !")
+        }
+      }
       const req = await fetch("http://localhost:1337/api/booking", {
         method: "POST",
         headers: {
@@ -97,10 +105,13 @@ export default function Booking() {
         alert("Seat Booked Successfully!");
         navigate("/profile");
       } else {
-        alert(data.error);
+        alert(data.error); 
       }
     }
-    else alert('Seat Already Booked !');
+    else {
+      // console.log(isVacant[1])
+      alert("Seat Already Booked!");
+    }
 
     
   };
@@ -119,7 +130,9 @@ export default function Booking() {
     const token = await localStorage.getItem("token");
     if (token) {
       const user = jwt.decode(token);
+      console.log(user);
       setEmail(user.email);
+      setName(user.name);
       if (!user) {
         localStorage.removeItem("token");
         navigate("/login", { replace: true });
