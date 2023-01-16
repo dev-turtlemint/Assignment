@@ -182,7 +182,7 @@ function HomePage() {
                                 <input
                                   readOnly
                                   onClick={(e) => {
-                                    setSeat(e.target.placeholder);
+                                    setSeat(`${id + 1}`);
                                   }}
                                   type="text"
                                   key={id}

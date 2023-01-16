@@ -15,10 +15,10 @@ function App() {
         <Routes>
           <Route path="/homepage" element={<HomePage />}></Route>
           <Route path="/" element={<HomePage />}></Route>
-          <Route
+          {/* <Route
             path="/booking"
             element={<ProtectedRoute component={Booking} />}
-          ></Route>
+          ></Route> */}
           <Route path="/login" exact element={<Login />}></Route>
           <Route path="/register" exact element={<Register />}></Route>
           <Route
