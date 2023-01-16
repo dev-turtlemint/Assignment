@@ -1,11 +1,13 @@
 import React from "react";
+import Logout from "./logout";
 
 function Header() {
   return (
-    <div>
-      <div style={{ marginTop: "5%" }}>
+    <div className="flexSpaceBtw">
+      <div>
         <h2>Office Seat Booking App</h2>
       </div>
+      <Logout />
     </div>
   );
 }

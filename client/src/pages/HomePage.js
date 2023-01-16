@@ -75,6 +75,7 @@ function HomePage() {
                 }}
               >
                 <button
+                  className="glassDesign"
                   onClick={() => {
                     navigate("/booking");
                   }}

@@ -312,6 +312,12 @@ button {
   height: 100%;
 }
 
+.flexSpaceBtw{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .box {
   width: 75vw;
   height: 75vh;
