@@ -1,10 +1,13 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Logout() {
+    const navigate = useNavigate();
 
     const removeLogin = (event) => {
         // event.preventDefault();
         localStorage.clear();
+        navigate('/login');
     };
 
   return (
