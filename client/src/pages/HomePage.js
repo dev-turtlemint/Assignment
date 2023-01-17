@@ -86,18 +86,20 @@ function HomePage() {
   };
 
   const getData = async () => {
-    const req = await fetch("http://localhost:1337/api/dashboard", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "x-access-token": localStorage.getItem("token"),
-      },
-    });
-    const data = await req.json();
-    setData(data);
+    if (localStorage.getItem("token")) {
+      const req = await fetch("http://localhost:1337/api/dashboard", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "x-access-token": localStorage.getItem("token"),
+        },
+      });
+      const data = await req.json();
+      setData(data);
 
-    if (data.status !== "ok") {
-      alert(data.error);
+      if (data.status !== "ok") {
+        alert(data.error);
+      }
     }
   };
 

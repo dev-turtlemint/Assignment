@@ -101,12 +101,14 @@ app.post("/api/booking", async (req, res) => {
 
 app.get("/api/dashboard", async (req, res) => {
   try {
-    const dateNow = Date.now()
+    const dateNow = Date.now();
     // const record = await Office.find({ });
-    const record = await Office.find({ time: { $gte: (dateNow/1000 - 604800) } });
+    const record = await Office.find({
+      time: { $gte: dateNow / 1000 - 604800 },
+    });
     // record.filter(function(item){return dateNow/1000 - Number(item.time) < 604800});
-    console.log('---------------------');
-    console.log(record);
+    // console.log('---------------------');
+    // console.log(record);
     return res.json({ record, status: "ok" });
   } catch (error) {
     console.log(error);
@@ -141,7 +143,7 @@ app.post("/api/delete", async (req, res) => {
   const token = req.headers["x-access-token"];
   const date = req.body.date;
   const seat = req.body.seat;
-  console.log(req);
+  // console.log(req);
   try {
     const decoded = jwt.verify(token, "secret123");
     const email = decoded.email;
