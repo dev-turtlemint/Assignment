@@ -52,32 +52,41 @@ function HomePage() {
     }
   };
 
+  const checkIfAllowed = () => {
+    for (let i = 0; i < 8; i++) {
+      if (finalData[date - dd][i] === name) {
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmitDetails = async (e) => {
     e.preventDefault();
     const isVacant = checkIfVacant(seat, date);
+    console.log(isVacant);
     if (isVacant[0]) {
-      for (let i = 0; i < 8; i++) {
-        if (name === isVacant[1]) {
-          alert("Only one seat per person per day allowed !");
+      if (checkIfAllowed()) {
+        const req = await fetch("http://localhost:1337/api/booking", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            seat: seat,
+            date: date,
+          }),
+        });
+        const data = await req.json();
+        if (data.status === "ok") {
+          alert("Seat Booked Successfully!");
+          navigate("/profile");
+        } else {
+          alert(data.error);
         }
-      }
-      const req = await fetch("http://localhost:1337/api/booking", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-access-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          seat: seat,
-          date: date,
-        }),
-      });
-      const data = await req.json();
-      if (data.status === "ok") {
-        alert("Seat Booked Successfully!");
-        navigate("/profile");
       } else {
-        alert(data.error);
+        alert("Only one seat per person per day allowed !");
       }
     } else {
       // console.log(isVacant[1])
